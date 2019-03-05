@@ -1,7 +1,7 @@
 # Postgresql HA Tool: Patroni Auto Deployment in Ansible
 This aoutomatic deployment script is for https://github.com/zalando/patroni.
 * Following tools are used
-    - Vagrant and virtualbox environtment
+    - Vagrant and virtualbox environment
     - Ubuntu 18.04 Bionic Bionic Beaver
     - Ansible 2.7.8
 

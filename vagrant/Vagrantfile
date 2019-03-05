@@ -1,0 +1,11 @@
+Vagrant.configure("2") do |config|
+ config.vm.box = "ubuntu/bionic64"
+ config.vm.hostname = "host11"
+ config.vm.network "private_network", ip: "10.0.0.11"
+  config.vm.provision "shell", inline: <<-SHELL
+  apt-get update
+  apt install python -y
+  sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
+  systemctl restart ssh
+SHELL
+end

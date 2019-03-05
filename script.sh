@@ -7,6 +7,8 @@ sudo apt-get install postgresql-11 python3-pip etcd -y
 sudo systemctl disable postgresql
 sudo systemctl stop postgresql
 
+sudo systemctl enable etcd
+
 # install patroni
 sudo pip3 install patroni python-etcd psycopg2-binary
   # dizine patroniyi ekleyecek.

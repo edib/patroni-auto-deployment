@@ -1,0 +1,14 @@
+[Unit]
+Description=confd
+After=syslog.target
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/confd
+KillSignal=SIGINT
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

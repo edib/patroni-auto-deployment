@@ -1,0 +1,18 @@
+##### -name
+ETCD_NAME="{{ inventory_hostname }}"
+##### -listen-peer-urls
+ETCD_LISTEN_PEER_URLS="http://{{ ansible_host }}:2380,http://localhost:2380"
+##### -listen-peer-urls
+ETCD_LISTEN_CLIENT_URLS="http://{{ ansible_host }}:2379,http://localhost:2379"
+##### -initial-advertise-peer-urls
+ETCD_INITIAL_ADVERTISE_PEER_URLS="http://{{ ansible_host }}:2380"
+##### -initial-cluster
+ETCD_INITIAL_CLUSTER="{% for host in ansible_play_hosts %}{{ hostvars[host]['inventory_hostname'] }}=http://{{ hostvars[host]['ansible_host'] }}:2380{% if not loop.last %},{% endif %}{% endfor %}"
+##### -initial-cluster-state
+ETCD_INITIAL_CLUSTER_STATE="new"
+##### -initial-cluster-token
+ETCD_INITIAL_CLUSTER_TOKEN="{{ etcd_token }}"
+##### -advertise-client-urls
+ETCD_ADVERTISE_CLIENT_URLS="http://{{ ansible_host }}:2379,http://localhost:2379"
+##### -data-dir
+ETCD_DATA_DIR="/var/lib/etcd/{{ etcd_token }}"

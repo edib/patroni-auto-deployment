@@ -1,0 +1,72 @@
+#jinja2: lstrip_blocks: True
+scope: postgres
+namespace: /db/
+name: pg_{{ inventory_hostname }}
+
+restapi:
+    listen: {{ ansible_host }}:8008
+    connect_address: {{ ansible_host }}:8008
+
+etcd:
+    hosts: {% for host in ansible_play_hosts %}{{ hostvars[host]['ansible_host'] }}:2379{% if not loop.last %},{% endif %}{% endfor %}
+
+bootstrap:
+    dcs:
+        ttl: 30
+        loop_wait: 10
+        retry_timeout: 10
+        maximum_lag_on_failover: 1048576
+        postgresql:
+            use_pg_rewind: true
+
+    initdb:
+    - encoding: UTF8
+    - data-checksums
+
+    pg_hba:
+    - host replication replicator 127.0.0.1/32 md5
+    {% for host in ansible_play_hosts %}
+    - host replication replicator {{ hostvars[host]['ansible_host'] }}/32 md5
+    {% endfor %}
+    - host all all 0.0.0.0/0 md5
+
+    users:
+        admin:
+            password: admin
+            options:
+                - createrole
+                - createdb
+
+postgresql:
+    listen: {{ ansible_host }}:5432
+    connect_address: {{ ansible_host }}:5432
+    data_dir: /var/lib/postgresql/11/data
+    bin_dir: /usr/lib/postgresql/11/bin
+    pgpass: /tmp/pgpass
+    max_connections: 100
+    max_locks_per_transaction: 64
+    max_worker_processes: 8
+    max_prepared_transactions: 0
+    wal_level: replica
+    wal_log_hints: on
+    track_commit_timestamp: off
+    max_wal_senders: 5
+    max_replication_slots: 5
+    wal_keep_segments: 8
+    hot_standby: on
+    pgpass: /tmp/pgpass
+    authentication:
+        replication:
+            username: replicator
+            password: rep-pass
+        superuser:
+            username: postgres
+            password: secretpassword
+    parameters:
+        unix_socket_directories: '/var/run/postgresql'
+
+tags:
+    nofailover: false
+    noloadbalance: false
+    clonefrom: false
+    nosync: false

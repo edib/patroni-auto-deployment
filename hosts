@@ -1,0 +1,8 @@
+[postgres]
+host11 ansible_host=10.0.0.11
+host12 ansible_host=10.0.0.12
+host13 ansible_host=10.0.0.13
+
+[postgres:vars]
+ansible_user=vagrant
+ansible_password=vagrant

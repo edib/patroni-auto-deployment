@@ -1,0 +1,22 @@
+- hosts: postgres
+  become: sudo
+  vars:
+    etcd_token: "postgres"
+  tasks:
+    - name: Postgres kur
+      script: script.sh
+    - name: copy files
+      template: src={{item.src}} dest={{item.dest}} mode={{item.mode}}
+      with_items:
+        - { src: 'templates/etcd.j2', dest: '/etc/default/etcd', mode: '644' }
+        - { src: 'templates/patroni.j2', dest: '/etc/patroni.yml', mode: '644' }
+        - { src: 'templates/patroni.service', dest: '/lib/systemd/system/patroni.service', mode: '644' }
+      sudo: yes
+      notify:
+        - restart etcd and patroni
+      tags:
+        - copy
+
+  handlers:
+    - name: restart etcd and patroni
+      script: restart.sh

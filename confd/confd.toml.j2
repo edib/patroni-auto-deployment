@@ -1,3 +1,4 @@
+#jinja2: lstrip_blocks: True
 #backend = "etcd"
 #client_cert = "/etc/confd/ssl/client.crt"
 #client_key = "/etc/confd/ssl/client.key"
@@ -5,11 +6,11 @@
 #log-level = "debug"
 interval = 10
 nodes = [
-  "http://10.0.0.11:2379",
-  "http://10.0.0.12:2379",
-  "http://10.0.0.13:2379"
+{% for host in etcd_hosts %}
+  "http://{{ host['ip'] }}:2379"{% if not loop.last %},{% endif %}
+{% endfor %}
 ]
 #noop = false
-prefix = "/db/postgres"
+prefix = "/{{ patroni_namespace }}/{{ patroni_scope }}"
 #scheme = "https"
 #srv_domain = "etcd.example.com"

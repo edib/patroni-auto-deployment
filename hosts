@@ -12,3 +12,8 @@ ansible_password=vagrant
 
 [pgbouncer]
 host101 ansible_host=10.0.0.101
+
+
+[pgbouncer:vars]
+ansible_user=vagrant
+ansible_password=vagrant

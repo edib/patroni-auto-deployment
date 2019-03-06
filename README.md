@@ -15,9 +15,12 @@ host12 10.0.0.12
 host13 10.0.0.13
 ```
 * Redundant etcd cluster members are on the same patroni/postgres instances.
-* Following ansible command aoutomaticly install all necessary services into vagrant vms and one master and two replica postgres services are up and running and ready to use.
+* Following ansible command automaticaly install
+  * postgresql-server, etcd cluster and patroni services on 3 vms,
+  * pgbouncer and confd service on the 4th vm.
+  * Finishes ready to use, up and running postgres automatic HA cluster.
 
 ```
 ansible-playbook patroni.yml
 ```
-* For now, confd setup on another machine is done [manually](confd).
+* confd setup on another machine can be done [manually](confd) too.

@@ -1,6 +1,6 @@
 #jinja2: lstrip_blocks: True
-scope: postgres
-namespace: /db/
+scope: {{ patroni_scope }}
+namespace: /{{ patroni_namespace }}/
 name: pg_{{ inventory_hostname }}
 
 restapi:
@@ -8,7 +8,7 @@ restapi:
     connect_address: {{ ansible_host }}:8008
 
 etcd:
-    hosts: {% for host in ansible_play_hosts %}{{ hostvars[host]['ansible_host'] }}:2379{% if not loop.last %},{% endif %}{% endfor %}
+    hosts: {% for host in patroni_hosts %}{{ host['ip'] }}:2379{% if not loop.last %},{% endif %}{% endfor %}
 
 bootstrap:
     dcs:
@@ -25,8 +25,8 @@ bootstrap:
 
     pg_hba:
     - host replication replicator 127.0.0.1/32 md5
-    {% for host in ansible_play_hosts %}
-    - host replication replicator {{ hostvars[host]['ansible_host'] }}/32 md5
+    {% for host in patroni_hosts %}
+    - host replication replicator {{ host['ip'] }}/32 md5
     {% endfor %}
     - host all all 0.0.0.0/0 md5
 

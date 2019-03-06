@@ -7,7 +7,7 @@ ETCD_LISTEN_CLIENT_URLS="http://{{ ansible_host }}:2379,http://localhost:2379"
 ##### -initial-advertise-peer-urls
 ETCD_INITIAL_ADVERTISE_PEER_URLS="http://{{ ansible_host }}:2380"
 ##### -initial-cluster
-ETCD_INITIAL_CLUSTER="{% for host in ansible_play_hosts %}{{ hostvars[host]['inventory_hostname'] }}=http://{{ hostvars[host]['ansible_host'] }}:2380{% if not loop.last %},{% endif %}{% endfor %}"
+ETCD_INITIAL_CLUSTER="{% for host in etcd_hosts %}{{ host['hn'] }}=http://{{ host['ip'] }}:2380{% if not loop.last %},{% endif %}{% endfor %}"
 ##### -initial-cluster-state
 ETCD_INITIAL_CLUSTER_STATE="new"
 ##### -initial-cluster-token

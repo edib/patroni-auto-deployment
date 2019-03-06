@@ -9,6 +9,7 @@ ExecStart=/usr/bin/confd
 KillSignal=SIGINT
 Restart=always
 RestartSec=10
+ExecReload=/bin/kill -s HUP $MAINPID
 
 [Install]
 WantedBy=multi-user.target

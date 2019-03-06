@@ -1,5 +1,5 @@
 [template]
-prefix = "/db/postgres"
+prefix = "/{{ patroni_namespace }}/{{ patroni_scope }}"
 owner = "postgres"
 mode = "0644"
 src = "pgbouncer.tmpl"

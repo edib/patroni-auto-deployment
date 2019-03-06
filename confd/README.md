@@ -66,5 +66,5 @@ systemctl start confd
 ```
 * Create and change pgbouncer's required files and restsart pgbouncer service.
 ```
-systemctl restart pgbouncerred
+systemctl restart pgbouncer
 ```

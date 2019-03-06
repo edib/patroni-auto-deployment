@@ -6,3 +6,9 @@ host13 ansible_host=10.0.0.13
 [postgres:vars]
 ansible_user=vagrant
 ansible_password=vagrant
+
+[localhost]
+
+
+[pgbouncer]
+host101 ansible_host=10.0.0.101

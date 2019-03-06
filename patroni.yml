@@ -11,7 +11,17 @@
         - { src: 'templates/etcd.j2', dest: '/etc/default/etcd', mode: '644' }
         - { src: 'templates/patroni.j2', dest: '/etc/patroni.yml', mode: '644' }
         - { src: 'templates/patroni.service', dest: '/lib/systemd/system/patroni.service', mode: '644' }
+        #- { src: 'test.j2', dest: 'test.txt', mode: '644' }
       sudo: yes
+      vars:
+        - patroni_hosts:
+          - { hn: host11, ip: 10.0.0.11 }
+          - { hn: host12, ip: 10.0.0.12 }
+          - { hn: host13, ip: 10.0.0.13 }
+        - etcd_hosts:
+          - { hn: host11, ip: 10.0.0.11 }
+          - { hn: host12, ip: 10.0.0.12 }
+          - { hn: host13, ip: 10.0.0.13 }
       notify:
         - restart etcd and patroni
       tags:
@@ -20,3 +30,7 @@
   handlers:
     - name: restart etcd and patroni
       script: restart.sh
+
+- hosts: pgbouncer
+  become: sudo
+  tasks: ping

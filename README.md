@@ -5,7 +5,7 @@ This aoutomatic deployment script is for https://github.com/zalando/patroni.
     - Ubuntu 18.04 Bionic Bionic Beaver
     - Ansible 2.7.8
 
-
+![HA Architecture](HAarchitecture.png)
 * For testing purposes I use 3 vagrant vms on virtualbox. Default vagrant config is used.
 * Make 3 copies of vagrant folder and change the ips and hostnames accordingly. ie.
 

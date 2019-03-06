@@ -1,6 +1,5 @@
-# confd installation and usage guide
-confd is a lightweight configuration management tool. [Link](https://github.com/kelseyhightower/confd)
-By this tool we can change the master ip automatically and without intervention whenever the master changes.
+# confd installation guide
+[confd](https://github.com/kelseyhightower/confd) is a lightweight configuration management tool. Using this tool we can change the master ip automatically in pgbouncer without intervention whenever the master changes.
 
 * download binary from [github](https://github.com/kelseyhightower/confd/releases)
 * copy it as /usr/bin/confd
@@ -27,5 +26,5 @@ prefix = "/db/postgres"
 
 * reconfigure pgbouncer.tmpl file that is in /etc/confd/templates/ accordingly.
 * create a service file confd.service and copy it in /lib/systemd/system/ and enable it
-* start  confd service
+* start confd service
 * restsart pgbouncer service

@@ -23,4 +23,14 @@ host13 10.0.0.13
 ```
 ansible-playbook patroni.yml
 ```
+
+* Login one of the node, in the command line
+```
+# list the cluster members
+patronictl -c /etc/patroni.yml list
+
+# To list all commands
+patronictl -c /etc/patroni.yml
+```
+
 * confd setup on another machine can be done [manually](confd) too.
